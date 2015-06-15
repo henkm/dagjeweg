@@ -2,6 +2,8 @@ require "dagjeweg/version"
 
 # Libraries
 require 'open-uri'
+require 'net/http'
+require 'json'
 
 #  Files
 require "dagjeweg/version"
