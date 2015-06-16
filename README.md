@@ -90,7 +90,7 @@ De volgende velden kunnen worden opgevraagd van iedere tip:
 	@tips.first.nearby(5)
 
 	# Vraag reviews van een uitstapje op
-	@reviews = DagjeWeg::Tip.find(22).reviews
+	@reviews = Dagjeweg::Tip.find(22).reviews
 ```
 
 ## API Key
