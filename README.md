@@ -21,6 +21,8 @@ Of installeer het zelf:
     $ gem install dagjeweg
 
 ## Configuratie in Rails applicatie
+Pas de configuratie van de environment aan (development.rb, production.rb, etc.)
+
 ```ruby
 config.dagjeweg.api_key   = "voerhierjouwmd5apikeyin"
 ```
