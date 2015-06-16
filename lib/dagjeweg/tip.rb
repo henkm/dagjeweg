@@ -13,12 +13,9 @@ module Dagjeweg
       args.each do |k,v|
         instance_variable_set("@#{k}", v) unless v.nil?
       end
-      self.distance = distance.to_f unless distance == ''
-      self.price = price.to_i unless price == ''
-      self.price_kids = price_kids.to_i unless price_kids == ''
-      self.price_toddlers = price_toddlers.to_i unless price_toddlers == ''
-      self.price_seniors = price_seniors.to_i unless price_seniors == ''
+      typecast_attrs
     end
+
 
     # returns a list of tips for given query
     def self.search(query="", per_page=50, page=1)
@@ -109,11 +106,12 @@ module Dagjeweg
     # Get the JSON object and return proper errors in scenarios where response code != 200 OK
     def self.get_json(uri)
       resp = Net::HTTP.get_response(URI.parse(uri))
-      if resp.code.to_i == 200
+      case resp.code.to_i
+      when 200
         return JSON.parse(resp.body)
-      elsif resp.code.to_i == 404
+      when 404
         raise DagjewegError.new(self), "Tip met deze ID werd niet gevonden. (#{resp.code})"
-      elsif resp.code.to_i == 403
+      when 403
         raise DagjewegError.new(self), "Ongeldige API Key (#{resp.code})"
       else
         raise DagjewegError.new(self), "Onbekende fout (#{resp.code})"
@@ -126,6 +124,14 @@ module Dagjeweg
 
     def self.base_url
       "http://m.dagjeweg.nl/api/#{Config.api_key}/"
+    end
+
+    def typecast_attrs
+      self.distance = distance.to_f unless distance == ''
+      self.price = price.to_i unless price == ''
+      self.price_kids = price_kids.to_i unless price_kids == ''
+      self.price_toddlers = price_toddlers.to_i unless price_toddlers == ''
+      self.price_seniors = price_seniors.to_i unless price_seniors == ''
     end
 
   end
