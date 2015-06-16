@@ -31,6 +31,47 @@ Mogelijkheden:
 - Lijst met tips per genre of rubriek
 - Recencies bij een tip opvragen
 
+## Informatie
+
+De volgende velden kunnen worden opgevraagd van iedere tip:
+
+|Naam|Type|Omschrijving|
+|----|----|-------------|
+|id|Integer|DagjeWeg.NL ID, correspondeert met URL op www.dagjeweg.nl|
+|name|String|Naam van het uitstapje|
+|google_name|String|SEO geoptimaliseerde naam|
+|description|Text|Korte omschrijving|
+|long_description|Text|Langere omschrijving (soms met HTML)|
+|genre|String|Genre|
+|address|String|Adres|
+|city|String|Plaatsnaam|
+|email|String|E-mail adres|
+|phone|String|Telefoonnummer|
+|url|String|URL van het uitstapje|
+|dwurl|String|URL van het uitstapje op DagjeWeg.NL|
+|longitude|Float|Longitude coordinaat|
+|latitude|Float|Latitude coordinaat|
+|period|String|Geopend in periode (hele jaar, zomer,etc.)|
+|ma, di, wo, do, vr, za, zo|Boolean|Open op deze dagen|
+|from_time|String|Open vanaf (bijv. "10:00")|
+|until_time|String|Open tot|
+|open_comment|Text|Opmerking over openingstijden|
+|price|Integer|Reguliere prijs in centen|
+|price_kids|Integer|Kinderprijs in centen|
+|price_toddlers|Integer|Baby/Peuterprijs in centen|
+|price_seniors|Integer|Seniorenprijs in centen|
+|show_price|String|Alle prijzen in HTML formaat|
+|accessible|Boolean|Toengankelijk voor mindervaliden|
+|accessible_comment|Text|Opmerkingen over toengankelijkheid|
+|wheelchair|Boolean|Rolstoelvoorzieningen|
+|wheelchair_toilet|Boolean|Invalidentoilet|
+|number_of_reviews|Integer|Aantal beoordelingen|
+|show_image|String|URL naar afbeelding (voorkeur)|
+|image|String|evt. URL naar afbeelding|
+|image2 .. image13|String|evt. URL naar afbeelding|
+|distance|Decimal|Afstand naar dit uitstapje (alleen bij #near en #nearby)|
+
+
 ## Voorbeelden 
 
 ```ruby

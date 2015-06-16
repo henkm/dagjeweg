@@ -95,6 +95,7 @@ describe Dagjeweg::Tip do
 	  	end
 	 
 	    it "returns a list of reviews for a tip" do
+	    	puts @tip.inspect
 	    	expect(@tip.reviews.count).to be > 20
 	    end
 

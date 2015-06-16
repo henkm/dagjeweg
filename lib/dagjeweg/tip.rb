@@ -14,6 +14,10 @@ module Dagjeweg
         instance_variable_set("@#{k}", v) unless v.nil?
       end
       self.distance = distance.to_f unless distance == ''
+      self.price = price.to_i unless price == ''
+      self.price_kids = price_kids.to_i unless price_kids == ''
+      self.price_toddlers = price_toddlers.to_i unless price_toddlers == ''
+      self.price_seniors = price_seniors.to_i unless price_seniors == ''
     end
 
     # returns a list of tips for given query
@@ -98,6 +102,15 @@ module Dagjeweg
       dw_id
     end
 
+    def weather
+      weer
+    end
+
+    def period
+      periode
+    end
+
+    
     private
 
     def self.get_json(uri)
