@@ -17,15 +17,35 @@ module Dagjeweg
     end
 
     # returns a list of tips for given query
-    def self.find(query="")
-
+    def self.search(query="", per_page=50, page=1)
+      @search_tips ||= []
+      unless @search_tips.any?
+        uri = Dagjeweg::Tip.api_url("search.json?q=#{query}&per_page=#{per_page}&page=#{page}")
+        json = Dagjeweg::Tip.get_json(uri)
+        for object in json
+          @search_tips << Dagjeweg::Tip.new(object)
+        end
+        return @search_tips
+      end
     end
 
-    # return a list of tips near location. Takes two params:
+    def self.find(dw_id="")
+      uri = Dagjeweg::Tip.api_url("tips.json?id=#{dw_id.to_s}")
+      json = Dagjeweg::Tip.get_json(uri)
+      if json && json.any?
+        tip = new(json.first)
+        return tip
+      else
+        raise DagjewegError.new("Tip met deze ID werd niet gevonden.")
+      end
+    end
+
+    # return a list of tips near location. Takes 3 params:
     # - lat
     # - lon
-    def near(coords={})
-      uri = Dagjeweg::Tip.api_url("tips.json?lat=#{coords[:lat]}&lon=#{coords[:lon]}")
+    # - number of tips
+    def self.near(lat, lon, per_page)
+      uri = Dagjeweg::Tip.api_url("tips.json?lat=#{lat}&lon=#{lon}&per_page=#{per_page}")
       json = Dagjeweg::Tip.get_json(uri)
       if json && json.any?
         a = []
@@ -53,20 +73,29 @@ module Dagjeweg
       end
     end
 
+    # returns a list of review objects
+    def reviews
+      @reviews ||= []
+      unless @reviews.any?
+        for object in show_reviews
+          @reviews << Dagjeweg::Review.new(
+            tip_id: id, 
+            reviewer: object["reviewer"], 
+            title: object["title"],
+            body: object["body"], 
+            duration: object["duration"], 
+            rating: object["cijfer"].to_i, 
+            review_date: object["review_date"], 
+            visit_date: object["visit_date"]
+          )
+        end
+      end
+      return @reviews
+    end
+
     # returns the DagjeWeg ID
     def id
       dw_id
-    end
-
-    def self.find_by_id(dw_id="")
-      uri = Dagjeweg::Tip.api_url("tips.json?id=#{dw_id.to_s}")
-      json = Dagjeweg::Tip.get_json(uri)
-      if json && json.any?
-        tip = new(json.first)
-        return tip
-      else
-        raise DagjewegError.new("Tip met deze ID werd niet gevonden.")
-      end
     end
 
     private

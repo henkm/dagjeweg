@@ -10,6 +10,7 @@ require "dagjeweg/version"
 require "dagjeweg/config"
 require "dagjeweg/engine" if defined?(Rails) && Rails::VERSION::MAJOR.to_i >= 3
 require "dagjeweg/tip"
+require "dagjeweg/review"
 require "dagjeweg/dagjeweg_error"
 
 # 

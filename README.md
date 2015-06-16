@@ -27,6 +27,19 @@ Mogelijkheden:
 - Lijst met tips per genre of rubriek
 - Recencies bij een tip opvragen
 
+## Voorbeelden 
+
+```ruby
+	# Zoek 20 uitstapjes in de buurt van Amsterdam centrum
+	@tips = Dagjeweg::Tip.near(52.3702160, 4.8951680, 20)
+
+	# Zoek uitstapjes in een straal van 5km van een ander uitstapje
+	@tips.first.nearby(5)
+
+	# Vraag reviews van een uitstapje op
+	@reviews = DagjeWeg::Tip.find(22).reviews
+```
+
 ## API Key
 
-Voor het gebruik van deze gem heb je een API Key nodig van DagjeWeg.NL
+Voor het gebruik van deze gem heb je een API Key nodig van DagjeWeg.NL. Een API Key kun je aanvragen door een verzoek te sturen naar redactie@dagjeweg.nl.
