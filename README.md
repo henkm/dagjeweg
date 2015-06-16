@@ -1,4 +1,9 @@
 # Dagjeweg
+[![Build Status](https://secure.travis-ci.org/henkm/dagjeweg.png)](http://travis-ci.org/henkm/dagjeweg)
+[![Gem Version](https://badge.fury.io/rb/dagjeweg.svg)](http://badge.fury.io/rb/dagjeweg)
+[![Dependency Status](https://gemnasium.com/henkm/dagjeweg.svg)](https://gemnasium.com/henkm/dagjeweg)
+[![Code Climate](https://codeclimate.com/github/henkm/dagjeweg/badges/gpa.svg)](https://codeclimate.com/github/henkm/dagjeweg)
+[![Coverage Status](https://coveralls.io/repos/henkm/dagjeweg/badge.png?branch=master)](https://coveralls.io/r/henkm/dagjeweg)
 
 Met deze gem kun je eenvoudig data opvragen via de DagjeWeg.NL API. *Let op:* het is een _read only_ API, dus het is niet mogelijk om data aan te passen.
 
