@@ -51,30 +51,14 @@ module Dagjeweg
     def self.near(lat, lon, per_page)
       uri = Dagjeweg::Tip.api_url("tips.json?lat=#{lat}&lon=#{lon}&per_page=#{per_page}")
       json = Dagjeweg::Tip.get_json(uri)
-      if json && json.any?
-        a = []
-        for object in json
-          a << Dagjeweg::Tip.new(json.first)
-        end
-        return a
-      else
-        raise DagjewegError.new("Tip met deze ID werd niet gevonden.")
-      end
+      @near ||= Dagjeweg::Tip.parse_json(json)
     end
 
     # returns a list of tips in the range of x kilometers of this instance
     def nearby(range=10)
       uri = Dagjeweg::Tip.api_url("nearby.json?id=#{id.to_s}")
       json = Dagjeweg::Tip.get_json(uri)
-      if json && json.any?
-        a = []
-        for object in json
-          a << Dagjeweg::Tip.new(json.first)
-        end
-        return a
-      else
-        raise DagjewegError.new("Tip met deze ID werd niet gevonden.")
-      end
+      @nearby ||= Dagjeweg::Tip.parse_json(json)
     end
 
     # returns a list of review objects
@@ -113,18 +97,25 @@ module Dagjeweg
     
     private
 
+    # Transform the json object in an Array of Tip instances
+    def self.parse_json(json)
+      a = []
+      for object in json
+        a << Dagjeweg::Tip.new(json.first)
+      end
+      return a
+    end
+
+    # Get the JSON object and return proper errors in scenarios where response code != 200 OK
     def self.get_json(uri)
       resp = Net::HTTP.get_response(URI.parse(uri))
       if resp.code.to_i == 200
-        buffer = resp.body
-        result = JSON.parse(buffer)
-        return result
+        return JSON.parse(resp.body)
       elsif resp.code.to_i == 404
         raise DagjewegError.new(self), "Tip met deze ID werd niet gevonden. (#{resp.code})"
       elsif resp.code.to_i == 403
         raise DagjewegError.new(self), "Ongeldige API Key (#{resp.code})"
       else
-        puts resp
         raise DagjewegError.new(self), "Onbekende fout (#{resp.code})"
       end
     end
