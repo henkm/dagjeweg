@@ -20,6 +20,12 @@ Of installeer het zelf:
 
     $ gem install dagjeweg
 
+## Configuratie in Rails applicatie
+```ruby
+config.dagjeweg.api_key   = "voerhierjouwmd5apikeyin"
+```
+
+
 ## Gebruik
 
 Mogelijkheden:
