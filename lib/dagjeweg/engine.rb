@@ -8,6 +8,6 @@ module DagjeWeg
   # config.dagjeweg.api_key  = "12343465sdfgsadr324"
   #
   class Engine < Rails::Engine
-    config.dagjeweg = Docdata::Config
+    config.dagjeweg = Dagjeweg::Config
   end
 end
