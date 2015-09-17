@@ -19,14 +19,14 @@ module Dagjeweg
 
     # returns a list of tips for given query
     def self.search(query="", per_page=50, page=1)
-      @search_tips ||= []
-      unless @search_tips.any?
+      search_tips = []
+      unless search_tips.any?
         uri = Dagjeweg::Tip.api_url("search.json?q=#{query}&per_page=#{per_page}&page=#{page}")
         json = Dagjeweg::Tip.get_json(uri)
         for object in json
-          @search_tips << Dagjeweg::Tip.new(object)
+          search_tips << Dagjeweg::Tip.new(object)
         end
-        return @search_tips
+        return search_tips
       end
     end
 
@@ -48,22 +48,22 @@ module Dagjeweg
     def self.near(lat, lon, per_page)
       uri = Dagjeweg::Tip.api_url("tips.json?lat=#{lat}&lon=#{lon}&per_page=#{per_page}")
       json = Dagjeweg::Tip.get_json(uri)
-      @near ||= Dagjeweg::Tip.parse_json(json)
+      Dagjeweg::Tip.parse_json(json)
     end
 
     # returns a list of tips in the range of x kilometers of this instance
     def nearby(range=10)
       uri = Dagjeweg::Tip.api_url("nearby.json?id=#{id.to_s}")
       json = Dagjeweg::Tip.get_json(uri)
-      @nearby ||= Dagjeweg::Tip.parse_json(json)
+      Dagjeweg::Tip.parse_json(json)
     end
 
     # returns a list of review objects
     def reviews
-      @reviews ||= []
-      unless @reviews.any?
+      reviews = []
+      unless reviews.any?
         for object in show_reviews
-          @reviews << Dagjeweg::Review.new(
+          reviews << Dagjeweg::Review.new(
             tip_id: id, 
             reviewer: object["reviewer"], 
             title: object["title"],
@@ -75,7 +75,7 @@ module Dagjeweg
           )
         end
       end
-      return @reviews
+      return reviews
     end
 
     # returns the DagjeWeg ID
