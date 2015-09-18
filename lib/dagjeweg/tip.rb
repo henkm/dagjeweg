@@ -21,7 +21,7 @@ module Dagjeweg
     def self.search(query="", per_page=50, page=1)
       search_tips = []
       unless search_tips.any?
-        uri = Dagjeweg::Tip.api_url("search.json?q=#{query}&per_page=#{per_page}&page=#{page}")
+        uri = Dagjeweg::Tip.api_url("search.json?q=#{URI.escape(query)}&per_page=#{per_page}&page=#{page}")
         json = Dagjeweg::Tip.get_json(uri)
         for object in json
           search_tips << Dagjeweg::Tip.new(object)
