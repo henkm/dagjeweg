@@ -98,7 +98,7 @@ module Dagjeweg
     def self.parse_json(json)
       a = []
       for object in json
-        a << Dagjeweg::Tip.new(json.first)
+        a << Dagjeweg::Tip.new(object)
       end
       return a
     end
