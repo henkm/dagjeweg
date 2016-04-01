@@ -66,9 +66,9 @@ module Dagjeweg
           reviews << Dagjeweg::Review.new(
             tip_id: id, 
             reviewer: object["reviewer"], 
-            title: object["title"],
+            title: object["titel"],
             body: object["body"], 
-            duration: object["duration"], 
+            duration: object["duur"], 
             rating: object["cijfer"].to_i, 
             review_date: object["review_date"], 
             visit_date: object["visit_date"]
