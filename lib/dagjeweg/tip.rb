@@ -31,6 +31,7 @@ module Dagjeweg
     def self.find(dw_id="")
       uri = Dagjeweg::Tip.api_url("tips.json?id=#{dw_id.to_s}")
       json = Dagjeweg::Tip.get_json(uri)
+      puts "JSON: #{json}"
       if json && json.any?
         tip = new(json.first)
         return tip
