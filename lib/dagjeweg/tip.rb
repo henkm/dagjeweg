@@ -8,9 +8,6 @@ module Dagjeweg
     # @param [Hash] args
     def initialize(args=nil)
       return if args.nil?
-      # if args["id"] && args["dw_id"]
-      #   args["id"] = args["dw_id"]
-      # end
       args.each do |k,v|
         instance_variable_set("@#{k}", v) unless v.nil?
       end
@@ -24,7 +21,7 @@ module Dagjeweg
       unless search_tips.any?
         uri = Dagjeweg::Tip.api_url("search.json?q=#{URI.escape(query)}&per_page=#{per_page}&page=#{page}")
         json = Dagjeweg::Tip.get_json(uri)
-        for object in json["tips"]
+        for object in json
           search_tips << Dagjeweg::Tip.new(object)
         end
         return search_tips
@@ -32,11 +29,11 @@ module Dagjeweg
     end
 
     def self.find(dw_id="")
-      uri = Dagjeweg::Tip.api_url("tips/#{dw_id.to_s}.json")
+      uri = Dagjeweg::Tip.api_url("tips.json?id=#{dw_id.to_s}")
       json = Dagjeweg::Tip.get_json(uri)
-      # puts "JSON: #{json}"
-      if json && json["id"]
-        tip = new(json)
+      puts "JSON: #{json}"
+      if json && json.any?
+        tip = new(json.first)
         return tip
       else
         raise DagjewegError.new("Tip met deze ID werd niet gevonden.")
@@ -55,7 +52,7 @@ module Dagjeweg
 
     # returns a list of tips in the range of x kilometers of this instance
     def nearby(range=10)
-      uri = Dagjeweg::Tip.api_url("tips/#{id.to_s}/nearby.json?range=#{range}")
+      uri = Dagjeweg::Tip.api_url("nearby.json?id=#{id.to_s}")
       json = Dagjeweg::Tip.get_json(uri)
       Dagjeweg::Tip.parse_json(json)
     end
@@ -107,7 +104,6 @@ module Dagjeweg
 
     # Get the JSON object and return proper errors in scenarios where response code != 200 OK
     def self.get_json(uri)
-      # puts "getting #{URI.parse(uri)}"
       resp = Net::HTTP.get_response(URI.parse(uri))
       case resp.code.to_i
       when 200
@@ -126,7 +122,7 @@ module Dagjeweg
     end
 
     def self.base_url
-      "https://api.dagjeweg.nl/api/#{Config.api_key}/"
+      "http://m.dagjeweg.nl/api/#{Config.api_key}/"
     end
 
     def typecast_attrs
