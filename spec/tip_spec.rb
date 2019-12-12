@@ -25,9 +25,9 @@ describe Dagjeweg::Tip do
 	  describe "#find" do
 	    it "returns a tip object with ID of given id when credentials are correct" do
 	    	# VCR.use_cassette("request-tips-with-credentials") do
-	    		tip = Dagjeweg::Tip.find(21)
+					tip = Dagjeweg::Tip.find(21)
 	    		expect(tip).to be_kind_of(Dagjeweg::Tip)
-	        expect(tip.id).to eq(21)
+	        expect(tip.dw_id).to eq(21)
 	      # end
 	    end
 		end  
@@ -67,7 +67,7 @@ describe Dagjeweg::Tip do
 	    it "has a distance attribute" do
 	      # VCR.use_cassette("request-nearby-tips") do
 	    		nearby_tips = @tip.nearby(10)
-	    		expect(nearby_tips[5].distance).to be_between(0.0, 10.0)
+	    		expect(nearby_tips[5].distance.split(" ").first.to_f).to be_between(0.0, 10.0)
 	      # end
 
 	    end
