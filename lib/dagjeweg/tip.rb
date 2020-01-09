@@ -90,7 +90,11 @@ module Dagjeweg
 
     def image
       if images && images.any?
-        images.first
+        if images.first.is_a?(Array)
+          return images.first.first
+        else
+          return images.first
+        end
       else
         false
       end
