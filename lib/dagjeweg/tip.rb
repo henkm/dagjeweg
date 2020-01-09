@@ -87,6 +87,14 @@ module Dagjeweg
       periode
     end
 
+
+    def image
+      if images && images.any?
+        images.first
+      else
+        false
+      end
+    end
     
     private
 
@@ -116,14 +124,6 @@ module Dagjeweg
 
     def self.api_url(ext='')
       self.base_url + ext
-    end
-
-    def image
-      if images && images.any?
-        images.first
-      else
-        false
-      end
     end
 
     def self.base_url
