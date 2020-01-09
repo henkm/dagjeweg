@@ -121,6 +121,8 @@ module Dagjeweg
     def image
       if images && images.any?
         images.first
+      else
+        false
       end
     end
 
