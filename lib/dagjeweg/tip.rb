@@ -15,6 +15,7 @@ module Dagjeweg
         instance_variable_set("@#{k}", v) unless v.nil?
       end
       self.id = self.dw_id
+      typecast_attrs
     end
 
 
@@ -123,6 +124,16 @@ module Dagjeweg
       "https://api.dagjeweg.nl/api/#{Config.api_key}/"
     end
 
-  
+    def typecast_attrs
+
+      # unless distance == ''
+      #   self.distance = self.distance.to_f
+      # end
+      # self.price = price.to_i unless price == ''
+      # self.price_kids = price_kids.to_i unless price_kids == ''
+      # self.price_toddlers = price_toddlers.to_i unless price_toddlers == ''
+      # self.price_seniors = price_seniors.to_i unless price_seniors == ''
+    end
+
   end
 end
