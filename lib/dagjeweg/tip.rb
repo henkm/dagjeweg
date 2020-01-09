@@ -1,7 +1,7 @@
 module Dagjeweg
 
   class Tip
-    attr_accessor :id
+    attr_accessor :id, :active_on_dagjeweg_tickets, :ticket_payload, :name, :postal_code, :google_name, :show_name, :show_price, :address, :email, :city, :dw_id, :latitude, :longitude, :long_description, :phone, :image2, :image3, :image4, :image5, :image6, :image8, :image9, :image10, :image11, :image12, :image13, :dwurl, :from_time, :until_time, :open_comment, :price, :price_kids, :price_seniors, :price_toddlers, :price_comment, :description, :wheelchair, :wheelchair_toilet, :accessible, :accessible_comment, :periode, :weer, :rounded_cijfer, :beter_uit, :number_of_reviews, :eerste_paasdag, :tweede_paasdag, :goede_vrijdag, :bevrijdingsdag, :hemelvaartsdag, :eerste_pinksterdag, :tweede_pinksterdag, :eerste_kerstdag, :tweede_kerstdag, :oudejaarsdag, :nieuwjaarsdag, :koningsdag, :images, :show_reviews, :goud, :vip, :affiliate, :url, :ma, :di, :wo, :do, :vr, :za, :zo, :genre, :distance
     # attr_accessor :id, :name, :google_name, :show_name, :show_price, :address, :email, :city, :postal_code, :dw_id, :latitude, :longitude, :image, :show_image, :long_description, :url, :phone, :email, :image2, :image3, :image4, :image5, :image6, :image8, :image9, :image10, :image11, :image12, :image13, :dwurl, :ma, :di, :wo, :do, :vr, :za, :zo, :from_time, :until_time, :open_comment, :price, :price_kids, :price_seniors, :price_toddlers, :price_comment, :description, :show_reviews, :wheelchair, :wheelchair_toilet, :accessible, :accessible_comment, :periode, :weer, :rounded_cijfer, :number_of_reviews, :activities, :genre, :distance, :eerste_paasdag, :tweede_paasdag, :goede_vrijdag, :bevrijdingsdag, :hemelvaartsdag, :eerste_pinksterdag, :tweede_pinksterdag, :eerste_kerstdag, :tweede_kerstdag, :oudejaarsdag, :nieuwjaarsdag, :koningsdag
 
     # Initializer to transform a +Hash+ into an Tip object
@@ -10,7 +10,7 @@ module Dagjeweg
     def initialize(args=nil)
       return if args.nil?
       args.each do |k,v|
-        # puts "Setting attr accessor for #{k}"
+        puts "Setting attr accessor for #{k}"
         singleton_class.class_eval { attr_accessor k }
         instance_variable_set("@#{k}", v) unless v.nil?
       end
@@ -125,7 +125,6 @@ module Dagjeweg
     end
 
     def typecast_attrs
-
       # unless distance == ''
       #   self.distance = self.distance.to_f
       # end
