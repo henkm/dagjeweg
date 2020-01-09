@@ -10,8 +10,8 @@ module Dagjeweg
     def initialize(args=nil)
       return if args.nil?
       args.each do |k,v|
-        puts "Setting attr accessor for #{k}"
-        singleton_class.class_eval { attr_accessor k }
+        # puts "Setting attr accessor for #{k}"
+        # singleton_class.class_eval { attr_accessor k }
         instance_variable_set("@#{k}", v) unless v.nil?
       end
       self.id = self.dw_id
